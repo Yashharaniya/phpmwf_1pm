@@ -1,0 +1,17 @@
+form{
+	height: auto;
+	width: 300px;
+	border: 1px solid black;
+	font-size: 20px;
+	background: black;
+	color: white;
+	padding-left: 10px;
+}
+h1{
+	color: red;
+	font-size: 25px;
+}
+button{
+	font-size: 20px;
+	margin-left: 35px;
+}
