@@ -1,0 +1,26 @@
+body
+{
+    background-color: pink;
+}
+h1
+{
+    color: blue;
+    font-size: 25px;
+}
+hr
+{
+    border: 5px solid brown;
+    width: 450px;
+    position: absolute;
+    
+    
+}
+tr
+{
+    font-size: 25px;
+    text-align: center;
+    color: black;
+}
+.a{
+    border: 15px solid black;
+}
