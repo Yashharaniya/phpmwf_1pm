@@ -1,0 +1,42 @@
+Q:-a
+ans:-SELECT first_name "employee name" FROM first_sql;
+
+Q:-b 
+ ans:-SELECT first_name, joining_date FROM first_sql;
+
+Q:-c
+ ans:- SELECT * FROM first_sql ORDER BY first_name asc, salary DESC;
+
+Q:-d
+ ans:-SELECT * FROM `first_sql` WHERE first_name LIKE 'o%';
+
+Q:-e
+ ans:- SELECT* FROM first_sql WHERE joining_date='2013-01-01';
+
+Q:-f
+ ans:-SELECT*FROM first_sql ORDER BY salary DESC;
+
+Q:-g
+ ans:-SELECT max(salary) AS max_salary FROM first_sql;
+
+Q:-h
+ ans:-SELECT * FROM first_sql WHERE salary >(3000);
+
+Q:-i 
+ ans:-select max(salary) from first_sql where salary < (SELECT max(salary) from first_sql);
+
+Q:-j	
+ans:-SELECT incentive.*,first_name from incentive left join employee on incentive.employee_ref_id=employee.em_id;
+
+Q:-k
+ ans:-SELECT first_name, last_name, salary FROM first_sql;
+
+Q:-l
+ ans:-	SELECT em_id, MAX(salary) FROM first_sql GROUP by em_id;
+
+Q:-m
+ ans:-CREATE TRIGGER mysql AFTER INSERT on employee for EACH ROW BEGIN end;
+
+	
+
+
