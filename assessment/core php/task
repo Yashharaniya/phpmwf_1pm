@@ -1,0 +1,94 @@
+<?php
+session_start();
+
+if (!isset($_SESSION['fruits'])) {
+    $_SESSION['fruits'] = [];
+}
+
+function addFruit($name, $quantity) {
+    $_SESSION['fruits'][] = ['name' => $name, 'quantity' => $quantity];
+}
+
+function viewFruits() {
+    if (empty($_SESSION['fruits'])) {
+        echo "No fruits in stock!<br>";
+    } else {
+        echo "Fruit Stock:<br>";
+        foreach ($_SESSION['fruits'] as $index => $fruit) {
+            echo ($index + 1) . ". " . $fruit['name'] . ": " . $fruit['quantity'] . "<br>";
+        }
+    }
+}
+
+function updateFruit($name, $newQuantity) {
+    foreach ($_SESSION['fruits'] as &$fruit) {
+        if ($fruit['name'] == $name) {
+            $fruit['quantity'] = $newQuantity;
+            echo "Fruit stock updated successfully!<br>";
+            return;
+        }
+    }
+    echo "Fruit not found in stock!<br>";
+}
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $role = $_POST['role'];
+    if ($role == 'manager') {
+        $action = $_POST['action'];
+        $name = $_POST['name'] ?? '';
+        $quantity = (int)($_POST['quantity'] ?? 0);
+
+        if ($action == 'add') {
+            addFruit($name, $quantity);
+        } elseif ($action == 'update') {
+            updateFruit($name, $quantity);
+        }
+    }
+}
+
+?>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Fruit Market</title>
+</head>
+<body>
+
+<h1>WELCOME TO FRUIT MARKET</h1>
+<form method="post">
+    <label>Select your Role:</label><br>
+    <input type="radio" name="role" value="manager" id="manager" required>
+    <label for="manager">Manager</label><br>
+    <input type="radio" name="role" value="customer" id="customer" required>
+    <label for="customer">Customer</label><br><br>
+    <input type="submit" value="Submit">
+</form>
+
+<?php
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $role = $_POST['role'];
+    if ($role == 'manager') {
+        echo '<h2>Fruit Market Manager</h2>';
+        echo '<form method="post">';
+        echo '<input type="hidden" name="role" value="manager">';
+        echo '<label>1) Add Fruit Stock</label><br>';
+        echo '<label>2) Update Fruit Stock</label><br>';
+        echo '<input type="radio" name="action" value="add" id="add" required>';
+        echo '<label for="add">Add Fruit Stock</label><br>';
+        echo '<input type="radio" name="action" value="update" id="update" required>';
+        echo '<label for="update">Update Fruit Stock</label><br><br>';
+        echo '<label>Enter fruit name: </label>';
+        echo '<input type="text" name="name" required><br>';
+        echo '<label>Enter quantity: </label>';
+        echo '<input type="number" name="quantity" required><br><br>';
+        echo '<input type="submit" value="Submit">';
+        echo '</form>';
+    } elseif ($role == 'customer') {
+        viewFruits();
+    }
+}
+?>
+
+</body>
+</html>
